@@ -17,8 +17,7 @@ impl Solution {
                 p = c;
             }
         }
-        
-        ans.sort_unstable_by(|a, b| a[0].cmp(&b[0]));
+
         ans
     }
 }
