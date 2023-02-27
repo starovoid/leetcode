@@ -1,21 +1,15 @@
-use std::collections::HashMap;
-
 impl Solution {
     pub fn smaller_numbers_than_current(nums: Vec<i32>) -> Vec<i32> {
-        let mut sorted_nums = nums.clone();
-        sorted_nums.sort_unstable();
-
-        let mut ans = Vec::with_capacity(nums.len());
-        let mut mem = HashMap::new();
-
-        for (i, x) in sorted_nums.into_iter().enumerate() {
-            mem.entry(x).or_insert(i);
+        let mut count = vec![0i32; 101];
+        for &x in nums.iter() {
+            count[x as usize] += 1;
         }
 
-        for x in nums.iter() {
-            ans.push(*mem.get(x).unwrap() as i32);
+        let mut ans = vec![0i32; 101];
+        for i in 1..=100 {
+            ans[i] = ans[i - 1] + count[i - 1];
         }
 
-        ans
+        nums.into_iter().map(|x| ans[x as usize]).collect()
     }
 }
